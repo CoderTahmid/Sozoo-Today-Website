@@ -1,2 +1,17 @@
 @import "tailwindcss";
 @plugin "daisyui/index.js";
+
+:root {
+	--main-bg: rgba(10, 22, 40, 1);
+}
+
+body {
+	background-color: var(--main-bg);
+	min-height: 100vh;
+	color: #e6eef8;
+}
+
+.navbar,
+.footer {
+	background-color: var(--main-bg);
+}
