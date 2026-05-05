@@ -1,3 +1,4 @@
+import GetInTouch from "../components/GetInTouch";
 import Hero from "../components/Hero";
 import OurPortfolio from "../components/OurPortfolio";
 import SmallAboutUs from "../components/SmallAboutUs";
@@ -10,6 +11,7 @@ const HomePage = () => {
             <OurPortfolio></OurPortfolio>
             <SuccessCount></SuccessCount>
             <SmallAboutUs></SmallAboutUs>
+            <GetInTouch></GetInTouch>
         </>
     );
 };
