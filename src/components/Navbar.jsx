@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const Navbar = () => {
     return (
 		<div className="navbar bg-base-100 shadow-sm">
@@ -13,7 +15,7 @@ const Navbar = () => {
 					</div>
 					<ul tabIndex="-1" className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
 						<li>
-							<a>Home</a>
+							<NavLink to={"/"}>Home</NavLink>
 						</li>
 						<li>
 							<a>About</a>
@@ -31,7 +33,7 @@ const Navbar = () => {
 							<a>Best Bangaldeshi Ads</a>
 						</li>
 						<li>
-							<a>Services</a>
+							<NavLink to="/services">Services</NavLink>
 						</li>
 						<li>
 							<a>Contact</a>
@@ -45,13 +47,13 @@ const Navbar = () => {
 				<div className="navbar-start flex-1">
 					<ul className="menu menu-horizontal px-1">
 						<li>
-							<a>Home</a>
+							<NavLink to={"/"}>Home</NavLink>
 						</li>
 						<li>
 							<a>About</a>
 						</li>
 						<li>
-							<a>Sozoo Today</a>
+							<NavLink to={"/"}>Sozoo Today</NavLink>
 						</li>
 						<li>
 							<a>Sozoo Entertainment</a>
@@ -59,7 +61,7 @@ const Navbar = () => {
 					</ul>
 				</div>
 				<div className="navbar-center">
-					<a className="btn btn-ghost text-xl">Sozoo Media</a>
+					<NavLink to={"/"} className="text-xl">Sozoo Media</NavLink>
 				</div>
 				<div className="navbar-end flex-1">
 					<ul className="menu menu-horizontal px-1">
@@ -70,7 +72,7 @@ const Navbar = () => {
 							<a>Best Bangaldeshi Ads</a>
 						</li>
 						<li>
-							<a>Services</a>
+							<NavLink to="/services">Services</NavLink>
 						</li>
 						<li>
 							<a>Contact</a>
