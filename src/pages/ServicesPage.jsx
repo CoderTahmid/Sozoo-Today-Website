@@ -1,3 +1,4 @@
+import BrandedContent from "../components/BrandedContent";
 import CommunityManagement from "../components/CommunityManagement";
 import OurServices from "../components/OurServices";
 import SentimentAnalysis from "../components/SentimentAnalysis";
@@ -10,6 +11,7 @@ const ServicesPage = () => {
             <OurServices></OurServices>
             <SentimentAnalysis></SentimentAnalysis>
             <CommunityManagement></CommunityManagement>
+            <BrandedContent></BrandedContent>
         </>
     );
 };
