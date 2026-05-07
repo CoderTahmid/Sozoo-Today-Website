@@ -12,7 +12,7 @@ const ServicesHero = () => {
 					{/* Center content */}
 					<div className="relative z-10 flex flex-col items-center text-center max-w-3xl px-6">
 						<div className="inline-block mb-6">
-							<span className="text-sm uppercase border border-[#1a7a6f] bg-[#1a7a6f39] bg-opacity-20 text-white px-5 py-3 rounded-full font-semibold">SOZOO SERVICES</span>
+							<span className="text-sm uppercase border border-[#1a7a6f] bg-[#1a7a6f39] bg-opacity-20 text-[#1A8A7D] px-5 py-3 rounded-full font-semibold">SOZOO SERVICES</span>
 						</div>
 
 						<h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-6 text-white">
