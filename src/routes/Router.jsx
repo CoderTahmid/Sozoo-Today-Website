@@ -3,6 +3,7 @@ import MainLayout from "../pages/MainLayout";
 import HomePage from "../pages/HomePage";
 import ServicesPage from "../pages/ServicesPage";
 import AboutUsPage from "../pages/AboutUsPage";
+import ContactUs from "../pages/ContactUs";
 
 const Router = createBrowserRouter([
 	{
@@ -20,6 +21,10 @@ const Router = createBrowserRouter([
 			{
 				path: "/about-us",
 				element: <AboutUsPage></AboutUsPage>
+			},
+			{
+				path: "/contact-us",
+				element: <ContactUs></ContactUs>
 			}
 		],
 	},
