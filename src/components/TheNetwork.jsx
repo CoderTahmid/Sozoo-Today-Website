@@ -1,4 +1,4 @@
-import { FiBriefcase, FiChevronRight, FiGrid, FiMonitor, FiUsers } from "react-icons/fi";
+import { FiBriefcase, FiChevronRight, FiGrid, FiUsers } from "react-icons/fi";
 
 const groups = [
     {
