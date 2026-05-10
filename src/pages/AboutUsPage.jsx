@@ -1,5 +1,6 @@
 import AboutUsHero from "../components/AboutUsHero";
 import TheJourney from "../components/TheJourney";
+import TheNetwork from "../components/TheNetwork";
 import WhatWeBelieve from "../components/WhatWeBelieve";
 
 const AboutUsPage = () => {
@@ -8,6 +9,7 @@ const AboutUsPage = () => {
             <AboutUsHero></AboutUsHero>
             <TheJourney></TheJourney>
             <WhatWeBelieve></WhatWeBelieve>
+            <TheNetwork></TheNetwork>
         </>
     );
 };
