@@ -18,7 +18,7 @@ const Navbar = () => {
 							<NavLink to={"/"}>Home</NavLink>
 						</li>
 						<li>
-							<a>About</a>
+							<NavLink to={"/about-us"}>About Us</NavLink>
 						</li>
 						<li>
 							<a>Sozoo Today</a>
@@ -50,7 +50,7 @@ const Navbar = () => {
 							<NavLink to={"/"}>Home</NavLink>
 						</li>
 						<li>
-							<a>About</a>
+							<NavLink to={"/about-us"}>About Us</NavLink>
 						</li>
 						<li>
 							<NavLink to={"/"}>Sozoo Today</NavLink>
