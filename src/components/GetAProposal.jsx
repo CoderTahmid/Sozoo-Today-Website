@@ -1,4 +1,5 @@
 import { FaArrowRight } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 import GetAProposalPCBackground from "../assets/GetAProposal_PC_Background.png";
 import GetInTouchMobileBackground from "../assets/GetInTouch_Mobile_Background.png";
 import LogoMobileDesignAllInOne2 from "../assets/Logo_Mobile_Design_All_In_One_2.png";
@@ -9,6 +10,8 @@ const proposalButtonStyles = {
 };
 
 const GetAProposal = () => {
+    const navigate = useNavigate();
+
     return (
         <section className="relative overflow-hidden text-white">
             <div className="hidden lg:block">
@@ -29,6 +32,8 @@ const GetAProposal = () => {
 
                             <div className="mt-8 flex justify-center">
                                 <button
+                                    type="button"
+                                    onClick={() => navigate("/contact-us")}
                                     className="btn inline-flex items-center justify-center gap-3 rounded-xl border-none text-sm font-bold tracking-widest text-white px-6 py-3 xl:text-base"
                                     style={proposalButtonStyles}
                                 >
@@ -70,6 +75,8 @@ const GetAProposal = () => {
                         </div>
 
                         <button
+                            type="button"
+                            onClick={() => navigate("/contact-us")}
                             className="btn mt-8 inline-flex w-full max-w-sm items-center justify-center gap-3 rounded-2xl border-none text-base font-bold tracking-widest text-white px-8 py-4"
                             style={proposalButtonStyles}
                         >

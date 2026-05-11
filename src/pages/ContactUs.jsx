@@ -116,16 +116,16 @@ const ContactUs = () => {
 						<div className="text-center">
 							<p className="text-sm text-slate-400 md:text-base mb-6">Or reach out to us directly on our social channels</p>
 							<div className="flex items-center justify-center gap-4 md:gap-6">
-								<a href="#" className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-[#1A8A7D] transition-all duration-300 hover:border-[#1A8A7D]/50 hover:bg-[#1A8A7D]/10 md:h-14 md:w-14">
+								<a href="https://www.facebook.com/sozootoday" className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-[#1A8A7D] transition-all duration-300 hover:border-[#1A8A7D]/50 hover:bg-[#1A8A7D]/10 md:h-14 md:w-14">
 									<FaFacebook className="text-xl md:text-2xl" />
 								</a>
-								<a href="#" className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-[#1A8A7D] transition-all duration-300 hover:border-[#1A8A7D]/50 hover:bg-[#1A8A7D]/10 md:h-14 md:w-14">
+								<a href="https://x.com/SozooToday" className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-[#1A8A7D] transition-all duration-300 hover:border-[#1A8A7D]/50 hover:bg-[#1A8A7D]/10 md:h-14 md:w-14">
 									<FaTwitter className="text-xl md:text-2xl" />
 								</a>
-								<a href="#" className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-[#1A8A7D] transition-all duration-300 hover:border-[#1A8A7D]/50 hover:bg-[#1A8A7D]/10 md:h-14 md:w-14">
+								<a href="https://www.instagram.com/sozoo.today" className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-[#1A8A7D] transition-all duration-300 hover:border-[#1A8A7D]/50 hover:bg-[#1A8A7D]/10 md:h-14 md:w-14">
 									<FaInstagram className="text-xl md:text-2xl" />
 								</a>
-								<a href="#" className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-[#1A8A7D] transition-all duration-300 hover:border-[#1A8A7D]/50 hover:bg-[#1A8A7D]/10 md:h-14 md:w-14">
+								<a href="https://www.linkedin.com/company/sozootoday/" className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-[#1A8A7D] transition-all duration-300 hover:border-[#1A8A7D]/50 hover:bg-[#1A8A7D]/10 md:h-14 md:w-14">
 									<FaLinkedinIn className="text-xl md:text-2xl" />
 								</a>
 							</div>

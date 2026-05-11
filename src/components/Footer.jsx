@@ -1,10 +1,26 @@
 import { FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { TbCube } from "react-icons/tb";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const company = ["Home", "About Us", "Careers", "Contact"];
-  const brands = ["Sozoo Today", "Get The Fame", "Sozoo Entertainment", "Best Bangladeshi Ads"];
-  const services = ["Brand Strategy", "Content Creation", "Talent Management", "Media Buying"];
+  const company = [
+    { label: "Home", path: "/" },
+    { label: "About Us", path: "/about-us" },
+    { label: "Careers", path: "#" },
+    { label: "Contact", path: "/contact-us" },
+  ];
+  const brands = [
+    { label: "Sozoo Today", path: "https://www.facebook.com/sozootoday" },
+    { label: "Get The Fame", path: "https://www.facebook.com/getthefaaame" },
+    { label: "Sozoo Entertainment", path: "https://www.facebook.com/sozooentertainmentmedia" },
+    { label: "Best Bangladeshi Ads", path: "https://www.facebook.com/profile.php?id=61584016537480" },
+  ];
+  const services = [
+    { label: "Brand Strategy", path: "#" },
+    { label: "Content Creation", path: "#" },
+    { label: "Talent Management", path: "#" },
+    { label: "Media Buying", path: "#" },
+  ];
 
   const sections = [
     { title: "Company", links: company },
@@ -13,9 +29,9 @@ const Footer = () => {
   ];
 
   const socials = [
-    { icon: <FaTwitter />, label: "Twitter" },
-    { icon: <FaInstagram />, label: "Instagram" },
-    { icon: <FaLinkedinIn />, label: "LinkedIn" },
+    { icon: <FaTwitter />, label: "Twitter", url: "https://x.com/SozooToday" },
+    { icon: <FaInstagram />, label: "Instagram", url: "https://www.instagram.com/sozoo.today" },
+    { icon: <FaLinkedinIn />, label: "LinkedIn", url: "https://www.linkedin.com/company/sozootoday/" },
   ];
 
   return (
@@ -42,13 +58,31 @@ const Footer = () => {
               </h3>
               <ul className="space-y-4">
                 {section.links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-slate-400 text-sm hover:text-teal-400 transition-colors duration-200"
-                    >
-                      {link}
-                    </a>
+                  <li key={link.label}>
+                    {link.path === "#" ? (
+                      <a
+                        href="#"
+                        className="text-slate-400 text-sm hover:text-teal-400 transition-colors duration-200"
+                      >
+                        {link.label}
+                      </a>
+                    ) : link.path.startsWith("/") ? (
+                      <Link
+                        to={link.path}
+                        className="text-slate-400 text-sm hover:text-teal-400 transition-colors duration-200"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={link.path}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-slate-400 text-sm hover:text-teal-400 transition-colors duration-200"
+                      >
+                        {link.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -62,10 +96,12 @@ const Footer = () => {
             © 2025 Sozoo Media. All rights reserved.
           </p>
           <div className="flex items-center gap-3">
-            {socials.map(({ icon, label }) => (
+            {socials.map(({ icon, label, url }) => (
               <a
                 key={label}
-                href="#"
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={label}
                 className="w-9 h-9 rounded-full border border-slate-600 flex items-center justify-center text-slate-400 text-sm hover:text-teal-400 hover:border-teal-400 transition-all duration-200"
               >

@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 const SmallAboutUs = () => {
+    const navigate = useNavigate();
+
     return (
         <section className="relative overflow-hidden bg-[#081427] text-white">
             <div
@@ -40,6 +44,7 @@ const SmallAboutUs = () => {
 
                     <div className="mt-9 w-full max-w-sm space-y-3 sm:max-w-md lg:mt-12 lg:max-w-lg">
                         <button
+                            onClick={() => navigate('/services')}
                             className="btn w-full rounded-2xl border-none text-white font-bold tracking-widest text-sm py-4 sm:text-base sm:py-5 lg:text-lg lg:py-6"
                             style={{
                                 background: "linear-gradient(135deg, #4ecdc4, #2a9d8f, #1a7a6e)",

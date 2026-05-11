@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const GetInTouch = () => {
+    const navigate = useNavigate();
     return (
         <>
             <section className="relative overflow-hidden bg-[#081427] text-white lg:hidden">
@@ -31,6 +34,8 @@ const GetInTouch = () => {
 
                         <div className="mt-10 w-full max-w-sm sm:max-w-md">
                             <button
+                                type="button"
+                                onClick={() => navigate("/contact-us")}
                                 className="btn w-full rounded-2xl border-none text-white font-bold tracking-widest text-sm py-4 sm:text-base sm:py-5"
                                 style={{
                                     background: "linear-gradient(135deg, #4ecdc4, #2a9d8f, #1a7a6e)",
@@ -64,6 +69,8 @@ const GetInTouch = () => {
 
                         <div className="mt-10 w-full max-w-sm xl:mt-12">
                             <button
+                                type="button"
+                                onClick={() => navigate("/contact-us")}
                                 className="btn w-full rounded-2xl border-none text-white font-bold tracking-widest text-base py-5 xl:text-lg xl:py-6"
                                 style={{
                                     background: "linear-gradient(135deg, #4ecdc4, #2a9d8f, #1a7a6e)",

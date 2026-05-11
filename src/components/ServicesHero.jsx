@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const ServicesHero = () => {
+	const navigate = useNavigate();
     return (
 		<>
 			{/* Desktop / PC Hero (visible on lg and up) */}
@@ -26,8 +29,7 @@ const ServicesHero = () => {
 						<p className="text-lg text-[#94A3B8] mb-10 max-w-2xl">Sozoo Media isn't just a publisher. We're a full-service digital media partner for brands.</p>
 
 						<div className="flex gap-6 w-full max-w-lg">
-							<button
-								className="btn flex-1 rounded-xl border-none text-white font-bold tracking-widest text-base px-8 py-4"
+							<button className="btn flex-1 rounded-xl border-none text-white font-bold tracking-widest text-base px-8 py-4"
 								style={{
 									background: "linear-gradient(135deg, #4ecdc4, #2a9d8f, #1a7a6e)",
 									boxShadow: "0 12px 40px rgba(34,197,94,0.12)",
@@ -36,7 +38,13 @@ const ServicesHero = () => {
 								EXPLORE OUR BRANDS
 							</button>
 
-							<button className="btn btn-outline text-white border-white/30 rounded-xl px-6 py-4">PARTNER WITH US</button>
+							<button
+								type="button"
+								onClick={() => navigate('/contact-us')}
+								className="btn btn-outline text-white border-white/30 rounded-xl px-6 py-4"
+							>
+								PARTNER WITH US
+							</button>
 						</div>
 					</div>
 				</div>
@@ -76,7 +84,13 @@ const ServicesHero = () => {
 								EXPLORE OUR BRANDS
 							</button>
 
-							<button className="w-full btn btn-outline text-white border-cyan-500 hover:bg-cyan-500 hover:border-cyan-500 rounded-2xl py-3">PARTNER WITH US</button>
+							<button
+								type="button"
+								onClick={() => navigate('/contact-us')}
+								className="w-full btn btn-outline text-white border-cyan-500 hover:bg-cyan-500 hover:border-cyan-500 rounded-2xl py-3"
+							>
+								PARTNER WITH US
+							</button>
 						</div>
 					</div>
 				</div>

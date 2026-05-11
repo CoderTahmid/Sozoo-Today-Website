@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const SozooEntertainmentHero = () => {
+	const navigate = useNavigate();
     return (
 		<>
 			{/* Desktop / PC Hero (visible on lg and up) */}
@@ -25,16 +28,24 @@ const SozooEntertainmentHero = () => {
 
 						<div className="flex gap-6 w-full max-w-lg">
 							<button
-								className="btn flex-1 rounded-xl border-none text-white font-bold tracking-widest text-base px-8 py-4"
-								style={{
-									background: "linear-gradient(135deg, #FF6B35, #ff8c58, #e85a2a)",
-									boxShadow: "0 12px 40px rgba(255,107,53,0.12)",
-								}}
-							>
-								FOLLOW US ON SOCIALS
-							</button>
+							type="button"
+							onClick={() => window.open('https://www.facebook.com/sozooentertainmentmedia', '_blank')}
+							className="btn flex-1 rounded-xl border-none text-white font-bold tracking-widest text-base px-8 py-4"
+							style={{
+								background: "linear-gradient(135deg, #FF6B35, #ff8c58, #e85a2a)",
+								boxShadow: "0 12px 40px rgba(255,107,53,0.12)",
+							}}
+						>
+							FOLLOW US ON SOCIALS
+						</button>
 
-							<button className="btn btn-outline text-white border-[#FF6B35] rounded-xl px-6 py-4">ADVERTISE WITH US</button>
+						<button
+							type="button"
+							onClick={() => navigate('/contact-us')}
+							className="btn btn-outline text-white border-[#FF6B35] rounded-xl px-6 py-4"
+						>
+							ADVERTISE WITH US
+						</button>
 						</div>
 					</div>
 				</div>
@@ -63,16 +74,24 @@ const SozooEntertainmentHero = () => {
 
 						<div className="space-y-3">
 							<button
-								className="btn w-full rounded-2xl border-none text-white font-bold tracking-widest text-sm py-4"
-								style={{
-									background: "linear-gradient(135deg, #FF6B35, #ff8c58, #e85a2a)",
-									boxShadow: "0 0 24px rgba(255,107,53,0.12)",
-								}}
-							>
-								FOLLOW US ON SOCIALS
-							</button>
+							type="button"
+							onClick={() => window.open('https://www.facebook.com/sozooentertainmentmedia', '_blank')}
+							className="btn w-full rounded-2xl border-none text-white font-bold tracking-widest text-sm py-4"
+							style={{
+								background: "linear-gradient(135deg, #FF6B35, #ff8c58, #e85a2a)",
+								boxShadow: "0 0 24px rgba(255,107,53,0.12)",
+							}}
+						>
+							FOLLOW US ON SOCIALS
+						</button>
 
-							<button className="w-full btn btn-outline text-white border-white/30 rounded-2xl py-3">ADVERTISE WITH US</button>
+						<button
+							type="button"
+							onClick={() => navigate('/contact-us')}
+							className="w-full btn btn-outline text-white border-white/30 rounded-2xl py-3"
+						>
+							ADVERTISE WITH US
+						</button>
 						</div>
 					</div>
 				</div>

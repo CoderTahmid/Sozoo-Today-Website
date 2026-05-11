@@ -2,11 +2,11 @@ import { FaInstagram, FaTwitter, FaFacebook, FaYoutube } from "react-icons/fa";
 
 const Community = () => {
     const socialLinks = [
-        { icon: FaInstagram, label: "Instagram", url: "#" },
-        { icon: FaTwitter, label: "Twitter", url: "#" },
-        { icon: FaFacebook, label: "Facebook", url: "#" },
-        { icon: FaYoutube, label: "YouTube", url: "#" },
-    ];
+		{icon: FaInstagram, label: "Instagram", url: "https://www.instagram.com/sozoo.entertainment/"},
+		{icon: FaTwitter, label: "Twitter", url: "https://x.com/SozooToday"},
+		{icon: FaFacebook, label: "Facebook", url: "https://www.facebook.com/sozooentertainmentmedia/"},
+		{icon: FaYoutube, label: "YouTube", url: "https://www.youtube.com/@sozootoday"},
+	];
 
     return (
         <section className="border-t w-[90%] mx-auto border-b border-white/10 py-16">

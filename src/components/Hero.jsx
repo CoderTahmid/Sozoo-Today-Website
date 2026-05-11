@@ -1,4 +1,9 @@
+import { useNavigate } from "react-router-dom";
+
 const Hero = () => {
+
+	const navigate = useNavigate();
+
 	return (
 		<>
 			{/* Desktop / PC Hero Section (visible on lg and up) */}
@@ -29,6 +34,7 @@ const Hero = () => {
 
 						<div className="flex flex-col items-center space-y-4 mt-4">
 							<button
+								type="button"
 								className="btn w-full rounded-xl border-none text-white font-bold tracking-widest text-base px-8 py-3"
 								style={{
 									background: "linear-gradient(135deg, #4ecdc4, #2a9d8f, #1a7a6e)",
@@ -38,7 +44,13 @@ const Hero = () => {
 								EXPLORE OUR BRANDS
 							</button>
 
-							<button className="btn w-full btn-outline text-white border-[#1A8A7D] hover:bg-cyan-500 hover:border-cyan-500 rounded-xl px-8 py-3">PARTNER WITH US</button>
+							<button
+								type="button"
+								onClick={() => navigate('/contact-us')}
+								className="btn w-full btn-outline text-white border-[#1A8A7D] hover:bg-cyan-500 hover:border-cyan-500 rounded-xl px-8 py-3"
+							>
+								PARTNER WITH US
+							</button>
 						</div>
 					</div>
 				</div>
@@ -72,7 +84,9 @@ const Hero = () => {
 						>
 							EXPLORE OUR BRANDS
 						</button>
-						<button className="w-full btn btn-outline text-white border-cyan-500 hover:bg-cyan-500 hover:border-cyan-500 rounded-2xl">PARTNER WITH US</button>
+						<button onClick={() => navigate("/contact-us")} className="w-full btn btn-outline text-white border-cyan-500 hover:bg-cyan-500 hover:border-cyan-500 rounded-2xl">
+							PARTNER WITH US
+						</button>
 					</div>
 				</div>
 			</div>

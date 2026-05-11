@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const AboutUsHero = () => {
+    const navigate = useNavigate();
     return (
         <>
             {/* Desktop / PC Hero (visible on lg and up) */}
@@ -28,6 +31,8 @@ const AboutUsHero = () => {
 
                         <div className="flex w-full max-w-lg gap-6">
                             <button
+                                type="button"
+                                onClick={() => navigate("/contact-us")}
                                 className="btn flex-1 rounded-xl border-none px-8 py-4 text-base font-bold tracking-widest text-white"
                                 style={{
                                     background: "linear-gradient(135deg, #4ecdc4, #2a9d8f, #1a7a6e)",
@@ -37,7 +42,11 @@ const AboutUsHero = () => {
                                 GET A PROPOSAL
                             </button>
 
-                            <button className="btn btn-outline rounded-xl border-white/30 px-6 py-4 text-white">
+                            <button
+                                type="button"
+                                onClick={() => navigate("/contact-us")}
+                                className="btn btn-outline rounded-xl border-white/30 px-6 py-4 text-white"
+                            >
                                 CONTACT US
                             </button>
                         </div>
@@ -72,6 +81,8 @@ const AboutUsHero = () => {
 
                         <div className="space-y-3">
                             <button
+                                type="button"
+                                onClick={() => navigate("/contact-us")}
                                 className="btn w-full rounded-2xl border-none py-4 text-sm font-bold tracking-widest text-white"
                                 style={{
                                     background: "linear-gradient(135deg, #4ecdc4, #2a9d8f, #1a7a6e)",
@@ -81,7 +92,11 @@ const AboutUsHero = () => {
                                 GET A PROPOSAL
                             </button>
 
-                            <button className="btn btn-outline w-full rounded-2xl border-cyan-500 py-3 text-white hover:border-cyan-500 hover:bg-cyan-500">
+                            <button
+                                type="button"
+                                onClick={() => navigate("/contact-us")}
+                                className="btn btn-outline w-full rounded-2xl border-cyan-500 py-3 text-white hover:border-cyan-500 hover:bg-cyan-500"
+                            >
                                 CONTACT US
                             </button>
                         </div>
