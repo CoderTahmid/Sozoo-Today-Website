@@ -24,7 +24,7 @@ const Navbar = () => {
 							<a>Sozoo Today</a>
 						</li>
 						<li>
-							<a>Sozoo Entertainment</a>
+							<NavLink to={"/sozoo-entertainment"}>Sozoo Entertainment</NavLink>
 						</li>
 						<li>
 							<a>Get The Fame</a>
@@ -53,15 +53,17 @@ const Navbar = () => {
 							<NavLink to={"/about-us"}>About Us</NavLink>
 						</li>
 						<li>
-							<NavLink to={"/"}>Sozoo Today</NavLink>
+							<NavLink>Sozoo Today</NavLink>
 						</li>
 						<li>
-							<a>Sozoo Entertainment</a>
+							<NavLink to={"/sozoo-entertainment"}>Sozoo Entertainment</NavLink>
 						</li>
 					</ul>
 				</div>
 				<div className="navbar-center">
-					<NavLink to={"/"} className="text-xl">Sozoo Media</NavLink>
+					<NavLink to={"/"} className="text-xl">
+						Sozoo Media
+					</NavLink>
 				</div>
 				<div className="navbar-end flex-1">
 					<ul className="menu menu-horizontal px-1">

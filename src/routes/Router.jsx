@@ -4,6 +4,7 @@ import HomePage from "../pages/HomePage";
 import ServicesPage from "../pages/ServicesPage";
 import AboutUsPage from "../pages/AboutUsPage";
 import ContactUs from "../pages/ContactUs";
+import SozooEntertainment from "../pages/SozooEntertainment";
 
 const Router = createBrowserRouter([
 	{
@@ -25,6 +26,10 @@ const Router = createBrowserRouter([
 			{
 				path: "/contact-us",
 				element: <ContactUs></ContactUs>
+			},
+			{
+				path: "/sozoo-entertainment",
+				element: <SozooEntertainment></SozooEntertainment>
 			}
 		],
 	},
