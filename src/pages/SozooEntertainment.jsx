@@ -1,3 +1,4 @@
+import Community from "../components/Community";
 import CultureAtScale from "../components/CultureAtScale";
 import FeaturedContent from "../components/FeaturedContent";
 import SozooEntertainmentHero from "../components/SozooEntertainmentHero";
@@ -10,6 +11,7 @@ const SozooEntertainment = () => {
             <CultureAtScale></CultureAtScale>
             <SozooEntertainmentStats></SozooEntertainmentStats>
             <FeaturedContent></FeaturedContent>
+            <Community></Community>
         </>
     );
 };
