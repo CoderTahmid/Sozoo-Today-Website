@@ -1,5 +1,11 @@
 import { useNavigate } from "react-router-dom";
 
+import backgroundGridMobile from "../assets/background_grid_mobile.png";
+import bestBangladeshiAdsLogoImg from "../assets/Best_Bangladeshi_Ads_Logo.png";
+import getTheFameLogoImg from "../assets/Get_The_Fame_Logo.png";
+import sozooEntertainmentLogoImg from "../assets/Sozoo_Entertainment_Logo.png";
+import sozooTodayLogoImg from "../assets/Sozoo_Today_Logo.png";
+
 const SmallAboutUs = () => {
     const navigate = useNavigate();
 
@@ -8,7 +14,7 @@ const SmallAboutUs = () => {
             <div
                 className="absolute inset-0 bg-cover bg-center opacity-60"
                 style={{
-                    backgroundImage: "url(/src/assets/background_grid_mobile.png)",
+                    backgroundImage: `url(${backgroundGridMobile})`,
                 }}
             />
 
@@ -29,16 +35,16 @@ const SmallAboutUs = () => {
 
                     <div className="mt-8 grid w-full grid-cols-2 gap-4 sm:gap-5 lg:mt-12 lg:grid-cols-4 lg:gap-6 xl:gap-8">
                         <div className="flex items-center justify-center rounded-2xl bg-white/5 px-4 py-4 shadow-[0_0_35px_rgba(0,0,0,0.2)] backdrop-blur-sm sm:px-6 sm:py-5 lg:min-h-32 lg:px-8 lg:py-6 xl:min-h-36">
-                            <img src="/src/assets/Sozoo_Today_Logo.png" alt="Sozoo Today" className="h-10 w-auto object-contain sm:h-12 lg:h-14 xl:h-16" />
+                            <img src={sozooTodayLogoImg} alt="Sozoo Today" className="h-10 w-auto object-contain sm:h-12 lg:h-14 xl:h-16" />
                         </div>
                         <div className="flex items-center justify-center rounded-2xl bg-white/5 px-4 py-4 shadow-[0_0_35px_rgba(0,0,0,0.2)] backdrop-blur-sm sm:px-6 sm:py-5 lg:min-h-32 lg:px-8 lg:py-6 xl:min-h-36">
-                            <img src="/src/assets/Sozoo_Entertainment_Logo.png" alt="Sozoo Entertainment" className="h-10 w-auto object-contain sm:h-12 lg:h-14 xl:h-16" />
+                            <img src={sozooEntertainmentLogoImg} alt="Sozoo Entertainment" className="h-10 w-auto object-contain sm:h-12 lg:h-14 xl:h-16" />
                         </div>
                         <div className="flex items-center justify-center rounded-2xl bg-white/5 px-4 py-4 shadow-[0_0_35px_rgba(0,0,0,0.2)] backdrop-blur-sm sm:px-6 sm:py-5 lg:min-h-32 lg:px-8 lg:py-6 xl:min-h-36">
-                            <img src="/src/assets/Get_The_Fame_Logo.png" alt="Get The Fame" className="h-10 w-auto object-contain sm:h-12 lg:h-14 xl:h-16" />
+                            <img src={getTheFameLogoImg} alt="Get The Fame" className="h-10 w-auto object-contain sm:h-12 lg:h-14 xl:h-16" />
                         </div>
                         <div className="flex items-center justify-center rounded-2xl bg-white/5 px-4 py-4 shadow-[0_0_35px_rgba(0,0,0,0.2)] backdrop-blur-sm sm:px-6 sm:py-5 lg:min-h-32 lg:px-8 lg:py-6 xl:min-h-36">
-                            <img src="/src/assets/Best_Bangladeshi_Ads_Logo.png" alt="Best Bangladeshi Ads" className="h-10 w-auto object-contain sm:h-12 lg:h-14 xl:h-16" />
+                            <img src={bestBangladeshiAdsLogoImg} alt="Best Bangladeshi Ads" className="h-10 w-auto object-contain sm:h-12 lg:h-14 xl:h-16" />
                         </div>
                     </div>
 

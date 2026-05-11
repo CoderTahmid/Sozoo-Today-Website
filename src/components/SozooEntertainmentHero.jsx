@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
+import orangeBackgroundGridPc from "../assets/Orange_Background_Grid_PC.png";
+import orangeBackgroundGridMobile from "../assets/Orange_Background_Grid_Mobile.png";
+
 const SozooEntertainmentHero = () => {
 	const navigate = useNavigate();
     return (
@@ -9,7 +12,7 @@ const SozooEntertainmentHero = () => {
 				<div
 					className="w-full min-h-screen bg-cover bg-center relative flex items-center justify-center px-10 py-24 overflow-hidden"
 					style={{
-						backgroundImage: "url(/src/assets/Orange_Background_Grid_PC.png)",
+						backgroundImage: `url(${orangeBackgroundGridPc})`,
 					}}
 				>
 					{/* Center content */}
@@ -56,7 +59,7 @@ const SozooEntertainmentHero = () => {
 				<div
 					className="w-full min-h-screen bg-cover bg-center flex flex-col items-center justify-center px-6 py-12 text-center text-white"
 					style={{
-						backgroundImage: "url(/src/assets/Orange_Background_Grid_Mobile.png)",
+						backgroundImage: `url(${orangeBackgroundGridMobile})`,
 					}}
 				>
 					<div className="max-w-lg">

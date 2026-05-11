@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import featuredContentImg from "../assets/Featured_Content.png";
+
 const sampleData = [
     { id: 1, title: "Red Carpet Exclusives", subtitle: "Behind the scenes looks" },
     { id: 2, title: "Live Event Coverage", subtitle: "Front row experiences" },
@@ -28,7 +30,7 @@ const FeaturedContent = () => {
 					<div className="hidden lg:grid lg:grid-cols-4 gap-6">
 						{sampleData.slice(0, 4).map((item) => (
 							<article key={item.id} className="bg-[#07529822] rounded-lg overflow-hidden">
-								<div className="h-48 bg-cover bg-center" style={{backgroundImage: "url(/src/assets/Featured_Content.png)"}} />
+								<div className="h-48 bg-cover bg-center" style={{backgroundImage: `url(${featuredContentImg})`}} />
 								<div className="p-4">
 									<h4 className="text-white font-semibold mb-1">{item.title}</h4>
 									<p className="text-sm text-[#94A3B8]">{item.subtitle}</p>
@@ -41,7 +43,7 @@ const FeaturedContent = () => {
 					<div className="flex gap-6 overflow-x-auto pb-4 lg:hidden">
 						{sampleData.map((item) => (
 							<article key={item.id} className="min-w-55 sm:min-w-65 bg-[#07529822] rounded-lg overflow-hidden">
-								<div className="h-40 bg-cover bg-center" style={{backgroundImage: "url(/src/assets/Featured_Content.png)"}} />
+								<div className="h-40 bg-cover bg-center" style={{backgroundImage: `url(${featuredContentImg})`}} />
 								<div className="p-4">
 									<h4 className="text-white font-semibold mb-1">{item.title}</h4>
 									<p className="text-sm text-[#94A3B8]">{item.subtitle}</p>
@@ -67,7 +69,7 @@ const FeaturedContent = () => {
 						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 							{sampleData.map((item) => (
 								<article key={item.id} className="bg-[#07529822] rounded-lg overflow-hidden">
-									<div className="h-40 bg-cover bg-center" style={{backgroundImage: "url(/src/assets/Featured_Content.png)"}} />
+									<div className="h-40 bg-cover bg-center" style={{backgroundImage: `url(${featuredContentImg})`}} />
 									<div className="p-4">
 										<h4 className="text-white font-semibold mb-1">{item.title}</h4>
 										<p className="text-sm text-[#94A3B8]">{item.subtitle}</p>

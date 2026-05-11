@@ -1,5 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
+import getInTouchMobileBackground from "../assets/GetInTouch_Mobile_Background.png";
+import logoMobileDesignAllInOne from "../assets/Logo_Mobile_Design_All_In_One.png";
+import getInTouchPcBackground from "../assets/GetInTouch_PC_Background.png";
+
 const GetInTouch = () => {
     const navigate = useNavigate();
     return (
@@ -8,7 +12,7 @@ const GetInTouch = () => {
                 <div
                     className="absolute inset-0 bg-cover bg-center opacity-70"
                     style={{
-                        backgroundImage: "url(/src/assets/GetInTouch_Mobile_Background.png)",
+                        backgroundImage: `url(${getInTouchMobileBackground})`,
                     }}
                 />
 
@@ -26,7 +30,7 @@ const GetInTouch = () => {
 
                         <div className="mt-8 w-full max-w-sm sm:max-w-md">
                             <img
-                                src="/src/assets/Logo_Mobile_Design_All_In_One.png"
+                                src={logoMobileDesignAllInOne}
                                 alt="Sozoo Media brands"
                                 className="w-full object-contain drop-shadow-[0_18px_45px_rgba(0,0,0,0.35)]"
                             />
@@ -53,7 +57,7 @@ const GetInTouch = () => {
                 <div
                     className="absolute inset-0 bg-contain bg-center bg-no-repeat"
                     style={{
-                        backgroundImage: "url(/src/assets/GetInTouch_PC_Background.png)",
+                        backgroundImage: `url(${getInTouchPcBackground})`,
                     }}
                 />
 

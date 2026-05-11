@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
+import backgroundGridPc from "../assets/Background_Grid_PC.png";
+import backgroundGridMobile from "../assets/background_grid_mobile.png";
+
 const ServicesHero = () => {
 	const navigate = useNavigate();
     return (
@@ -9,7 +12,7 @@ const ServicesHero = () => {
 				<div
 					className="w-full min-h-screen bg-cover bg-center relative flex items-center justify-center px-10 py-24 overflow-hidden"
 					style={{
-						backgroundImage: "url(/src/assets/Background_Grid_PC.png)",
+						backgroundImage: `url(${backgroundGridPc})`,
 					}}
 				>
 					{/* Center content */}
@@ -55,7 +58,7 @@ const ServicesHero = () => {
 				<div
 					className="w-full min-h-screen bg-cover bg-center flex flex-col items-center justify-center px-6 py-12 text-center text-white"
 					style={{
-						backgroundImage: "url(/src/assets/background_grid_mobile.png)",
+						backgroundImage: `url(${backgroundGridMobile})`,
 					}}
 				>
 					<div className="max-w-lg">
