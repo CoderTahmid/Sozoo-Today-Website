@@ -90,7 +90,7 @@ const NewsSection = () => {
 
 	if (loading) {
 		return (
-			<section className="py-10">
+			<section id="news-section" className="py-10">
 				<div className="text-center text-lg">Loading News...</div>
 			</section>
 		);
@@ -98,14 +98,14 @@ const NewsSection = () => {
 
 	if (error) {
 		return (
-			<section className="py-10">
+			<section id="news-section" className="py-10">
 				<div className="text-center text-red-500">{error}</div>
 			</section>
 		);
 	}
 
 	return (
-		<section className="bg-base-100 py-10">
+		<section id="news-section" className="bg-base-100 py-10">
 			<div className="mx-auto max-w-7xl px-4">
 				{/* Tabs */}
 
