@@ -69,12 +69,12 @@ const NewsSection = () => {
 		return () => controller.abort();
 	}, [accountId, accessToken]);
 
-	// Latest News
+	// Sozoo Picks
 	const latestNews = useMemo(() => {
 		return [...posts].sort((a, b) => getTimestampValue(b.timestamp) - getTimestampValue(a.timestamp));
 	}, [posts]);
 
-	// Popular Now
+	// External Picks
 	const popularNews = useMemo(() => {
 		return [...posts].sort((a, b) => (b.like_count || 0) - (a.like_count || 0)).slice(0, 20);
 	}, [posts]);
@@ -112,11 +112,11 @@ const NewsSection = () => {
 				<div className="mb-8 flex justify-center">
 					<div className="flex border-b border-base-300">
 						<button onClick={() => changeTab("latest")} className={`px-5 pb-3 text-lg font-semibold transition ${activeTab === "latest" ? "border-b-2 border-cyan-500 text-cyan-500" : "text-gray-500 hover:text-white"}`}>
-							Latest News
+							Sozoo Picks
 						</button>
 
 						<button onClick={() => changeTab("popular")} className={`px-5 pb-3 text-lg font-semibold transition ${activeTab === "popular" ? "border-b-2 border-cyan-500 text-cyan-500" : "text-gray-500 hover:text-white"}`}>
-							Popular Now
+							External Picks
 						</button>
 					</div>
 				</div>
