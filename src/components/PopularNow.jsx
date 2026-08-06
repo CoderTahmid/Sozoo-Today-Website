@@ -74,15 +74,15 @@ const PopularNow = () => {
 
 	const statusContent = useMemo(() => {
 		if (loading) {
-			return <div className="mx-auto flex min-h-56 w-full max-w-5xl items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-6 text-center text-sm text-white/70">Loading popular posts...</div>;
+			return <div className="mx-auto flex min-h-56 w-full max-w-5xl items-center justify-center rounded-2xl border border-white/10 bg-black px-6 text-center text-sm text-white/70">Loading popular posts...</div>;
 		}
 
 		if (error) {
-			return <div className="mx-auto flex min-h-56 w-full max-w-5xl items-center justify-center rounded-2xl border border-rose-400/20 bg-rose-500/10 px-6 text-center text-sm text-rose-100">{error}</div>;
+			return <div className="mx-auto flex min-h-56 w-full max-w-5xl items-center justify-center rounded-2xl border border-rose-400/20 bg-black px-6 text-center text-sm text-rose-100">{error}</div>;
 		}
 
 		if (posts.length === 0) {
-			return <div className="mx-auto flex min-h-56 w-full max-w-5xl items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-6 text-center text-sm text-white/70">No image posts from the last 7 days yet.</div>;
+			return <div className="mx-auto flex min-h-56 w-full max-w-5xl items-center justify-center rounded-2xl border border-white/10 bg-black px-6 text-center text-sm text-white/70">No image posts from the last 7 days yet.</div>;
 		}
 
 		return null;
@@ -103,7 +103,7 @@ const PopularNow = () => {
 	};
 
 	return (
-		<section className="bg-[#0f1e34] py-10 text-white sm:px-6 lg:px-8">
+		<section className="bg-black py-10 text-white sm:px-6 lg:px-8">
 			<div className="mx-auto">
 				<div className="mb-6 flex items-center justify-center gap-4 sm:mb-8">
 					<button type="button" onClick={() => scrollCarousel(-1)} className="btn btn-circle btn-ghost hidden border border-white/10 text-white hover:border-cyan-400/50 hover:bg-cyan-400/10 md:inline-flex" aria-label="Scroll popular posts left">
@@ -129,11 +129,11 @@ const PopularNow = () => {
 									href={post.permalink}
 									target="_blank"
 									rel="noopener noreferrer"
-									className={`carousel-item group relative block aspect-4/5 w-[72vw] max-w-[18rem] shrink-0 overflow-hidden rounded-2xl border border-white/20 bg-slate-900/30 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/60 hover:shadow-[0_22px_70px_rgba(34,211,238,0.24)] sm:w-[38vw] sm:max-w-[20rem] md:w-[28vw] lg:w-[21vw] ${index === 0 ? "ml-[14vw] sm:ml-0" : ""}`}
+									className={`carousel-item group relative block aspect-4/5 w-[72vw] max-w-[18rem] shrink-0 overflow-hidden rounded-2xl border border-white/20 bg-black transition duration-300 hover:-translate-y-1 hover:border-cyan-400/60 hover:shadow-[0_22px_70px_rgba(34,211,238,0.24)] sm:w-[38vw] sm:max-w-[20rem] md:w-[28vw] lg:w-[21vw] ${index === 0 ? "ml-[14vw] sm:ml-0" : ""}`}
 									aria-label="Read more on Instagram"
 								>
 									{failedImageIds.has(post.id) ? (
-										<div className="flex h-full w-full items-center justify-center bg-slate-800/70 px-4 text-center text-sm text-white/80">Open on Instagram</div>
+										<div className="flex h-full w-full items-center justify-center bg-black px-4 text-center text-sm text-white/80">Open on Instagram</div>
 									) : (
 										<img
 											src={post.media_url}

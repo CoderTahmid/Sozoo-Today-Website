@@ -105,7 +105,7 @@ const NewsSection = () => {
 	}
 
 	return (
-		<section id="news-section" className="bg-base-100 py-10">
+		<section id="news-section" className="bg-black py-10 text-white">
 			<div className="mx-auto max-w-7xl px-4">
 				{/* Tabs */}
 
@@ -125,7 +125,7 @@ const NewsSection = () => {
 
 				<div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
 					{visiblePosts.map((post) => (
-						<a key={post.id} href={post.permalink} target="_blank" rel="noopener noreferrer" className="group relative block aspect-4/5 overflow-hidden rounded-2xl border border-white/10 bg-base-300 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/60">
+						<a key={post.id} href={post.permalink} target="_blank" rel="noopener noreferrer" className="group relative block aspect-4/5 overflow-hidden rounded-2xl border border-white/10 bg-black transition duration-300 hover:-translate-y-1 hover:border-cyan-400/60">
 							<img src={post.media_url} alt={post.caption || "News"} loading="lazy" onError={() => console.log(post.media_url)} className="h-full w-full object-cover object-center transition duration-500 group-hover:scale-105" />
 
 							<div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/15 to-transparent opacity-0 transition-all duration-300 group-hover:opacity-60" />
