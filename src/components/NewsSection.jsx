@@ -387,29 +387,9 @@ const NewsSection = () => {
 	);
 
 	const popularSection = (
-		<>
-			<div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-				{visiblePosts.map((post) => (
-					<a key={post.id} href={post.permalink} target="_blank" rel="noopener noreferrer" className="group relative block aspect-4/5 overflow-hidden rounded-2xl border border-white/10 bg-black transition duration-300 hover:-translate-y-1 hover:border-cyan-400/60">
-						<img src={post.media_url} alt={post.caption || "News"} loading="lazy" className="h-full w-full object-cover object-center transition duration-500 group-hover:scale-105" />
-
-						<div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/15 to-transparent opacity-0 transition-all duration-300 group-hover:opacity-60" />
-
-						<div className="absolute inset-x-0 bottom-0 translate-y-full text-center opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-50">
-							<span className="text-lg font-semibold text-white">Read More</span>
-						</div>
-					</a>
-				))}
-			</div>
-
-			{visibleCount < popularNews.length && (
-				<div className="mt-10 flex justify-center">
-					<button onClick={() => setVisibleCount((prev) => prev + 9)} className="btn btn-primary px-8">
-						Load More
-					</button>
-				</div>
-			)}
-		</>
+		<div className="mx-auto my-12 max-w-md rounded-4xl border border-white/10 bg-white/5 px-6 py-12 text-center shadow-[0_25px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+			<p className="text-xl font-semibold tracking-wide text-white/80">Feature is coming</p>
+		</div>
 	);
 
 	if (loading) {
