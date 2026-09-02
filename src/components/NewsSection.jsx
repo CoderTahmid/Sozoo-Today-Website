@@ -10,6 +10,7 @@ import {
 	FiRefreshCw,
 	FiSearch,
 	FiShare2,
+	FiChevronDown,
 } from "react-icons/fi";
 
 const API_BASE = "https://graph.facebook.com/v23.0";
@@ -25,23 +26,19 @@ const NATIONAL_FEEDS = [
 	{ name: "The Business Standard", url: "https://www.tbsnews.net/top-news/rss.xml" },
 	{ name: "The Daily Ittefaq", url: "https://en.ittefaq.com.bd/feed/" },
 	{ name: "Prothom Alo Bangla", url: "https://prod-qt-images.s3.amazonaws.com/production/prothomalo-bangla/feed.xml" },
-	{ name: "Bangla News 24", url: "https://www.banglanews24.com/rss/rss.xml" },
-	{ name: "Samakal", url: "https://samakal.com/rss" },
 	{ name: "Dhaka Post", url: "https://www.dhakapost.com/rss/rss.xml" },
 	{ name: "Channel 24", url: "https://www.channel24bd.tv/rss/rss.xml" },
-	{ name: "Kaler Kantho", url: "https://www.kalerkantho.com/rss.xml" },
 ];
 
 const INTERNATIONAL_FEEDS = [
 	{ name: "BBC News", url: "https://feeds.bbci.co.uk/news/world/rss.xml" },
 	{ name: "New York Times", url: "https://rss.nytimes.com/services/xml/rss/nyt/World.xml" },
-	{ name: "ABC News", url: "https://abcnews.go.com/abcnews/usheadlines" },
-	{ name: "CNN", url: "https://rss.app/feeds/9F5p3m4XQpJbsBbL.xml" },
 	{ name: "The Guardian", url: "https://www.theguardian.com/international/rss" },
 	{ name: "Al Jazeera", url: "https://www.aljazeera.com/xml/rss/all.xml" },
+	{ name: "Bloomberg", url: "https://feeds.bloomberg.com/markets/news.rss" },
+	{ name: "ABC News", url: "https://abcnews.go.com/abcnews/usheadlines" },
 	{ name: "The Wall Street Journal", url: "https://feeds.content.dowjones.io/public/rss/RSSWorldNews" },
 	{ name: "The Washington Post", url: "https://feeds.washingtonpost.com/rss/world" },
-	{ name: "Bloomberg", url: "https://feeds.bloomberg.com/markets/news.rss" },
 ];
 
 const postTextVariants = {
@@ -104,20 +101,28 @@ const parseRssDate = (dateStr) => {
 	if (!dateStr) return null;
 	const str = String(dateStr).trim();
 
-	// 1. Direct standard parse
+	// 1. If format is 'YYYY-MM-DD HH:mm:ss' (from rss2json), parse as UTC
+	if (/^\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}$/.test(str)) {
+		const utcDate = new Date(str.replace(" ", "T") + "Z");
+		if (!Number.isNaN(utcDate.getTime())) {
+			return utcDate;
+		}
+	}
+
+	// 2. Direct standard parse
 	let date = new Date(str);
 	if (!Number.isNaN(date.getTime()) && date.getFullYear() >= 2020) {
 		return date;
 	}
 
-	// 2. Clean weekday names (Wednesday, Wed, etc.) and commas
+	// 3. Clean weekday names and extra commas
 	const cleanStr = str.replace(/^[A-Za-z]+,\s*/, "").replace(/,\s*/g, " ");
 	date = new Date(cleanStr);
 	if (!Number.isNaN(date.getTime()) && date.getFullYear() >= 2020) {
 		return date;
 	}
 
-	// 3. Try ISO format with T and Z
+	// 4. Try ISO format with T and Z
 	if (cleanStr.includes(" ") && !cleanStr.includes("T")) {
 		date = new Date(cleanStr.replace(" ", "T") + "Z");
 		if (!Number.isNaN(date.getTime()) && date.getFullYear() >= 2020) {
@@ -125,7 +130,7 @@ const parseRssDate = (dateStr) => {
 		}
 	}
 
-	// 4. Try replacing slashes
+	// 5. Try replacing slashes
 	date = new Date(cleanStr.replace(/-/g, "/"));
 	if (!Number.isNaN(date.getTime()) && date.getFullYear() >= 2020) {
 		return date;
@@ -161,10 +166,19 @@ const formatExactTime = (timestamp) => {
 };
 
 const parseRssXml = (xmlText, sourceName, fallbackUrl) => {
-	if (!xmlText) return [];
+	if (!xmlText || typeof xmlText !== "string") return [];
+	const trimmed = xmlText.trim();
+	if (
+		trimmed.startsWith("<!DOCTYPE html") ||
+		trimmed.startsWith("<!doctype html") ||
+		trimmed.startsWith("<html")
+	) {
+		return [];
+	}
+
 	try {
 		const parser = new DOMParser();
-		const doc = parser.parseFromString(xmlText, "text/xml");
+		const doc = parser.parseFromString(trimmed, "text/xml");
 		if (doc.querySelector("parsererror")) {
 			return [];
 		}
@@ -200,24 +214,36 @@ const parseRssXml = (xmlText, sourceName, fallbackUrl) => {
 	}
 };
 
+let serverProxyDisabled = false;
+
 const fetchSingleRssFeed = async (feed, signal) => {
-	// Strategy 1: Vite / Backend Server Proxy (Fastest & No CORS)
-	try {
-		const res = await fetch(`/api/rss?url=${encodeURIComponent(feed.url)}`, { signal });
-		if (res.ok) {
-			const xmlText = await res.text();
-			const parsed = parseRssXml(xmlText, feed.name, feed.url);
-			if (parsed.length > 0) {
-				return parsed;
+	// Strategy 1: Server Proxy (Vite dev or Netlify Function)
+	if (!serverProxyDisabled) {
+		try {
+			const res = await fetch(`/api/rss?url=${encodeURIComponent(feed.url)}`, { signal });
+			if (res.ok) {
+				const contentType = res.headers.get("content-type") || "";
+				if (!contentType.includes("html")) {
+					const xmlText = await res.text();
+					const parsed = parseRssXml(xmlText, feed.name, feed.url);
+					if (parsed.length > 0) {
+						return parsed;
+					}
+				}
+			} else if (res.status === 404) {
+				serverProxyDisabled = true;
 			}
+		} catch {
+			serverProxyDisabled = true;
 		}
-	} catch (err) {
-		void err;
 	}
 
-	// Strategy 2: api.rss2json.com
+	// Strategy 2: Client-side api.rss2json.com (CORS allowed on all origins)
 	try {
-		const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`, { signal });
+		const res = await fetch(
+			`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`,
+			{ signal }
+		);
 		if (res.ok) {
 			const data = await res.json();
 			if (data.status === "ok" && Array.isArray(data.items) && data.items.length > 0) {
@@ -227,35 +253,6 @@ const fetchSingleRssFeed = async (feed, signal) => {
 					pubDate: item.pubDate || "",
 					source: feed.name,
 				}));
-			}
-		}
-	} catch (err) {
-		void err;
-	}
-
-	// Strategy 3: allorigins.win JSON wrapper
-	try {
-		const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(feed.url)}`, { signal });
-		if (res.ok) {
-			const data = await res.json();
-			const xmlText = data.contents;
-			const parsed = parseRssXml(xmlText, feed.name, feed.url);
-			if (parsed.length > 0) {
-				return parsed;
-			}
-		}
-	} catch (err) {
-		void err;
-	}
-
-	// Strategy 4: Direct fetch (for S3 or CORS-enabled origins)
-	try {
-		const res = await fetch(feed.url, { signal });
-		if (res.ok) {
-			const xmlText = await res.text();
-			const parsed = parseRssXml(xmlText, feed.name, feed.url);
-			if (parsed.length > 0) {
-				return parsed;
 			}
 		}
 	} catch (err) {
@@ -288,6 +285,7 @@ const NewsSection = () => {
 	const [selectedPlatform, setSelectedPlatform] = useState("all");
 	const [searchQuery, setSearchQuery] = useState("");
 	const [lastRefreshedAt, setLastRefreshedAt] = useState(null);
+	const [visibleCount, setVisibleCount] = useState(9);
 
 	// Instagram interaction state
 	const [likedPosts, setLikedPosts] = useState(() => new Set());
@@ -359,12 +357,19 @@ const NewsSection = () => {
 				setRssLoading(true);
 				setRssError("");
 
-				const results = await Promise.allSettled(
-					feeds.map((feed) => fetchSingleRssFeed(feed, controller.signal))
-				);
+				const promises = feeds.map(async (feed, index) => {
+					if (index > 0) {
+						await new Promise((resolve) => setTimeout(resolve, index * 100));
+					}
+					return fetchSingleRssFeed(feed, controller.signal);
+				});
+
+				const results = await Promise.allSettled(promises);
 
 				const cutoff = Date.now() - TWO_HOURS_MS;
-				const allItems = [];
+				const extendedCutoff = Date.now() - 6 * 60 * 60 * 1000;
+				const twoHourItems = [];
+				const extendedItems = [];
 
 				results.forEach((result) => {
 					if (result.status === "fulfilled" && Array.isArray(result.value)) {
@@ -372,20 +377,23 @@ const NewsSection = () => {
 							const dateObj = parseRssDate(item.pubDate);
 							if (dateObj) {
 								const timestamp = dateObj.getTime();
-								// Filter last 2 hours (with 10-minute future buffer for clock skews)
-								if (timestamp >= cutoff && timestamp <= Date.now() + 10 * 60 * 1000) {
-									allItems.push({
-										...item,
-										timestamp,
-										dateObj,
-									});
+								const itemObj = {
+									...item,
+									timestamp,
+									dateObj,
+								};
+								if (timestamp >= cutoff && timestamp <= Date.now() + 2 * 60 * 60 * 1000) {
+									twoHourItems.push(itemObj);
+								}
+								if (timestamp >= extendedCutoff && timestamp <= Date.now() + 2 * 60 * 60 * 1000) {
+									extendedItems.push(itemObj);
 								}
 							}
 						});
 					}
 				});
 
-				// Sort by publish date descending
+				const allItems = twoHourItems.length > 0 ? twoHourItems : extendedItems;
 				allItems.sort((a, b) => b.timestamp - a.timestamp);
 
 				setRssNews((prev) => ({
@@ -415,12 +423,19 @@ const NewsSection = () => {
 			setRssLoading(true);
 			setRssError("");
 
-			const results = await Promise.allSettled(
-				feeds.map((feed) => fetchSingleRssFeed(feed))
-			);
+			const promises = feeds.map(async (feed, index) => {
+				if (index > 0) {
+					await new Promise((resolve) => setTimeout(resolve, index * 100));
+				}
+				return fetchSingleRssFeed(feed);
+			});
+
+			const results = await Promise.allSettled(promises);
 
 			const cutoff = Date.now() - TWO_HOURS_MS;
-			const allItems = [];
+			const extendedCutoff = Date.now() - 6 * 60 * 60 * 1000;
+			const twoHourItems = [];
+			const extendedItems = [];
 
 			results.forEach((result) => {
 				if (result.status === "fulfilled" && Array.isArray(result.value)) {
@@ -428,18 +443,23 @@ const NewsSection = () => {
 						const dateObj = parseRssDate(item.pubDate);
 						if (dateObj) {
 							const timestamp = dateObj.getTime();
-							if (timestamp >= cutoff && timestamp <= Date.now() + 10 * 60 * 1000) {
-								allItems.push({
-									...item,
-									timestamp,
-									dateObj,
-								});
+							const itemObj = {
+								...item,
+								timestamp,
+								dateObj,
+							};
+							if (timestamp >= cutoff && timestamp <= Date.now() + 2 * 60 * 60 * 1000) {
+								twoHourItems.push(itemObj);
+							}
+							if (timestamp >= extendedCutoff && timestamp <= Date.now() + 2 * 60 * 60 * 1000) {
+								extendedItems.push(itemObj);
 							}
 						}
 					});
 				}
 			});
 
+			const allItems = twoHourItems.length > 0 ? twoHourItems : extendedItems;
 			allItems.sort((a, b) => b.timestamp - a.timestamp);
 
 			setRssNews((prev) => ({
@@ -472,12 +492,14 @@ const NewsSection = () => {
 		setScrollProgress(0);
 		setSelectedPlatform("all");
 		setSearchQuery("");
+		setVisibleCount(9);
 	};
 
 	const changeExternalCategory = (cat) => {
 		setExternalCategory(cat);
 		setSelectedPlatform("all");
 		setSearchQuery("");
+		setVisibleCount(9);
 	};
 
 	const handleLike = (postId) => {
@@ -652,6 +674,10 @@ const NewsSection = () => {
 			return matchesPlatform && matchesSearch;
 		});
 	}, [currentRssList, selectedPlatform, searchQuery]);
+
+	const displayedRssNews = useMemo(() => {
+		return filteredRssNews.slice(0, visibleCount);
+	}, [filteredRssNews, visibleCount]);
 
 	// Sozoo Picks Section
 	const latestSection = !activePost ? (
@@ -882,7 +908,10 @@ const NewsSection = () => {
 					</span>
 					<button
 						type="button"
-						onClick={() => setSelectedPlatform("all")}
+						onClick={() => {
+							setSelectedPlatform("all");
+							setVisibleCount(9);
+						}}
 						className={`rounded-full border px-3 py-1 font-medium transition ${
 							selectedPlatform === "all"
 								? "border-cyan-400 text-cyan-400 font-semibold bg-zinc-900"
@@ -896,7 +925,10 @@ const NewsSection = () => {
 						<button
 							key={sourceName}
 							type="button"
-							onClick={() => setSelectedPlatform(sourceName)}
+							onClick={() => {
+								setSelectedPlatform(sourceName);
+								setVisibleCount(9);
+							}}
 							className={`rounded-full border px-3 py-1 font-medium transition ${
 								selectedPlatform === sourceName
 									? "border-cyan-400 text-cyan-400 font-semibold bg-zinc-900"
@@ -914,14 +946,20 @@ const NewsSection = () => {
 					<input
 						type="text"
 						value={searchQuery}
-						onChange={(e) => setSearchQuery(e.target.value)}
+						onChange={(e) => {
+							setSearchQuery(e.target.value);
+							setVisibleCount(9);
+						}}
 						placeholder="Search headlines..."
 						className="w-full rounded-full border border-zinc-800 bg-zinc-900 py-1.5 pl-9 pr-3 text-xs text-white placeholder-zinc-500 outline-none transition focus:border-cyan-400"
 					/>
 					{searchQuery && (
 						<button
 							type="button"
-							onClick={() => setSearchQuery("")}
+							onClick={() => {
+								setSearchQuery("");
+								setVisibleCount(9);
+							}}
 							className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-400 hover:text-white"
 						>
 							✕
@@ -974,6 +1012,7 @@ const NewsSection = () => {
 								onClick={() => {
 									setSelectedPlatform("all");
 									setSearchQuery("");
+									setVisibleCount(9);
 								}}
 								className="rounded-full border border-zinc-700 bg-zinc-800 px-4 py-2 text-xs font-semibold text-white hover:border-zinc-500"
 							>
@@ -992,61 +1031,77 @@ const NewsSection = () => {
 					</div>
 				</div>
 			) : (
-				/* News Grid */
-				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					{filteredRssNews.map((item, idx) => (
-						<article
-							key={`${item.source}-${item.link}-${idx}`}
-							className="group relative flex flex-col justify-between rounded-2xl border border-zinc-800 bg-zinc-900 p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-zinc-800/90 hover:shadow-[0_16px_40px_rgba(34,211,238,0.12)]"
-						>
-							<div>
-								{/* Card Header: Platform badge & Published time */}
-								<div className="mb-3 flex items-center justify-between gap-2">
-									<span className="inline-flex items-center gap-1.5 rounded-full border border-zinc-700 bg-zinc-800/90 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-cyan-300">
-										<span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
-										{item.source}
-									</span>
+				/* News Grid & Pagination */
+				<div>
+					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+						{displayedRssNews.map((item, idx) => (
+							<article
+								key={`${item.source}-${item.link}-${idx}`}
+								className="group relative flex flex-col justify-between rounded-2xl border border-zinc-800 bg-zinc-900 p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-zinc-800/90 hover:shadow-[0_16px_40px_rgba(34,211,238,0.12)]"
+							>
+								<div>
+									{/* Card Header: Platform badge & Published time */}
+									<div className="mb-3 flex items-center justify-between gap-2">
+										<span className="inline-flex items-center gap-1.5 rounded-full border border-zinc-700 bg-zinc-800/90 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-cyan-300">
+											<span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
+											{item.source}
+										</span>
 
-									<span
-										className="inline-flex items-center gap-1 text-[11px] font-medium text-zinc-400"
-										title={formatExactTime(item.timestamp)}
-									>
-										<FiClock className="text-[11px] text-cyan-400/70" />
-										{formatTimeAgo(item.timestamp)}
-									</span>
+										<span
+											className="inline-flex items-center gap-1 text-[11px] font-medium text-zinc-400"
+											title={formatExactTime(item.timestamp)}
+										>
+											<FiClock className="text-[11px] text-cyan-400/70" />
+											{formatTimeAgo(item.timestamp)}
+										</span>
+									</div>
+
+									{/* Headline */}
+									<h4 className="text-[15px] font-semibold leading-snug text-white transition group-hover:text-cyan-200">
+										<a
+											href={item.link}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="focus:outline-none after:absolute after:inset-0"
+										>
+											{item.title}
+										</a>
+									</h4>
 								</div>
 
-								{/* Headline */}
-								<h4 className="text-[15px] font-semibold leading-snug text-white transition group-hover:text-cyan-200">
+								{/* Card Footer: Timestamp & Read button */}
+								<div className="mt-4 flex items-center justify-between border-t border-zinc-800/80 pt-3">
+									<span className="text-[11px] text-zinc-400">
+										{formatExactTime(item.timestamp)}
+									</span>
+
 									<a
 										href={item.link}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="focus:outline-none after:absolute after:inset-0"
+										className="relative z-10 inline-flex items-center gap-1 text-xs font-semibold text-cyan-400 transition group-hover:translate-x-0.5 group-hover:text-cyan-300"
 									>
-										{item.title}
+										Read Article
+										<FiArrowUpRight className="text-sm transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
 									</a>
-								</h4>
-							</div>
+								</div>
+							</article>
+						))}
+					</div>
 
-							{/* Card Footer: Timestamp & Read button */}
-							<div className="mt-4 flex items-center justify-between border-t border-zinc-800/80 pt-3">
-								<span className="text-[11px] text-zinc-400">
-									{formatExactTime(item.timestamp)}
-								</span>
-
-								<a
-									href={item.link}
-									target="_blank"
-									rel="noopener noreferrer"
-									className="relative z-10 inline-flex items-center gap-1 text-xs font-semibold text-cyan-400 transition group-hover:translate-x-0.5 group-hover:text-cyan-300"
-								>
-									Read Article
-									<FiArrowUpRight className="text-sm transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-								</a>
-							</div>
-						</article>
-					))}
+					{/* Load More Button */}
+					{visibleCount < filteredRssNews.length && (
+						<div className="mt-10 flex justify-center">
+							<button
+								type="button"
+								onClick={() => setVisibleCount((prev) => prev + 9)}
+								className="group inline-flex items-center gap-2 rounded-full border border-cyan-400/50 bg-zinc-900 px-8 py-3 text-sm font-semibold text-cyan-400 shadow-md transition duration-200 hover:border-cyan-400 hover:bg-cyan-400 hover:text-slate-950 active:scale-[0.98]"
+							>
+								<span>Load More</span>
+								<FiChevronDown className="text-base transition duration-200 group-hover:translate-y-0.5" />
+							</button>
+						</div>
+					)}
 				</div>
 			)}
 		</div>
