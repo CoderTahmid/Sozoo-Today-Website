@@ -1,30 +1,30 @@
 import {useEffect, useRef, useState} from "react";
 import Advertisement2 from "../assets/Advertisement2.png";
 
+const ADS = [Advertisement2];
+
 const Advertisement = () => {
-	// Use the provided Advertisement2 image as the primary ad
-	const ads = [Advertisement2];
 	const [current, setCurrent] = useState(0);
 	const [isPaused, setIsPaused] = useState(false);
-	const [setImgStatus] = useState({src: '', loaded: false, error: false});
+	const [, setImgStatus] = useState({src: '', loaded: false, error: false});
 	const containerRef = useRef(null);
 
 	useEffect(() => {
 		if (isPaused) return;
 		const interval = setInterval(() => {
-			setCurrent((prev) => (prev + 1) % ads.length);
+			setCurrent((prev) => (prev + 1) % ADS.length);
 		}, 3000);
 
 		return () => clearInterval(interval);
-	}, [isPaused, ads.length]);
+	}, [isPaused]);
 
 	// debug: print resolved image URLs (helpful if images fail to load in browser)
 	useEffect(() => {
-		console.debug('Advertisement image URLs:', ads);
-	}, [ads]);
+		console.debug('Advertisement image URLs:', ADS);
+	}, []);
 
-	const goPrev = () => setCurrent((c) => (c - 1 + ads.length) % ads.length);
-	const goNext = () => setCurrent((c) => (c + 1) % ads.length);
+	const goPrev = () => setCurrent((c) => (c - 1 + ADS.length) % ADS.length);
+	const goNext = () => setCurrent((c) => (c + 1) % ADS.length);
 
 	const handleKeyDown = (e) => {
 		if (e.key === "ArrowLeft") goPrev();
@@ -48,7 +48,7 @@ const Advertisement = () => {
 					className="flex transition-transform duration-700 ease-in-out"
 					style={{transform: `translateX(-${current * 100}%)`}}
 				>
-					{ads.map((ad, index) => (
+					{ADS.map((ad, index) => (
 						<div key={index} className="w-full shrink-0 relative">
 							<img
 								src={ad}
@@ -103,7 +103,7 @@ const Advertisement = () => {
 
 			{/* Dots */}
 			<div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2">
-				{ads.map((_, index) => (
+				{ADS.map((_, index) => (
 					<button
 						key={index}
 						onClick={() => setCurrent(index)}
