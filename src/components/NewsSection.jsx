@@ -1124,7 +1124,7 @@ const NewsSection = () => {
 	}
 
 	return (
-		<section id="news-section" className="bg-black py-10 text-white">
+		<section id="news-section" className="scroll-mt-24 bg-black py-10 text-white">
 			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 				{/* Top Tab Bar: Sozoo Picks vs External Picks */}
 				<div className="mb-8 flex justify-center">

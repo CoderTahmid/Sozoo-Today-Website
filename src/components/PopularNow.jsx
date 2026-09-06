@@ -103,7 +103,7 @@ const PopularNow = () => {
 	};
 
 	return (
-		<section className="bg-black py-10 text-white sm:px-6 lg:px-8">
+		<section id="popular-now" className="scroll-mt-24 bg-black py-10 text-white sm:px-6 lg:px-8">
 			<div className="mx-auto">
 				<div className="mb-6 flex items-center justify-center gap-4 sm:mb-8">
 					<button type="button" onClick={() => scrollCarousel(-1)} className="btn btn-circle btn-ghost hidden border border-white/10 text-white hover:border-cyan-400/50 hover:bg-cyan-400/10 md:inline-flex" aria-label="Scroll popular posts left">
